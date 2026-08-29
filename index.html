@@ -450,8 +450,8 @@
     const globalItems = [];
     const allFiles = [];
     const updatePathRanks = new Map([
-      ["root\\收藏\\三酉酒（三酒）", 0],
-      ["root\\收藏\\催眠听晚", 1]
+      ["root\\收藏\\催眠红茶", 0],
+      ["root\\收藏\\三点水社", 1]
     ]);
     const bottomUpdatePaths = new Set(["root\\收藏\\杂七杂八"]);
     const defaultUpdateRank = 2;
@@ -740,6 +740,9 @@
         const aBottom = bottomUpdatePaths.has(a.path);
         const bBottom = bottomUpdatePaths.has(b.path);
         if (aBottom !== bBottom) return aBottom ? 1 : -1;
+        const aRank = updatePathRanks.has(a.path) ? updatePathRanks.get(a.path) : defaultUpdateRank;
+        const bRank = updatePathRanks.has(b.path) ? updatePathRanks.get(b.path) : defaultUpdateRank;
+        if (aRank !== bRank) return aRank - bRank;
         const addedDiff = new Date(b.updateAddedUtc || b.modifiedUtc || 0) - new Date(a.updateAddedUtc || a.modifiedUtc || 0);
         if (addedDiff !== 0) return addedDiff;
         return new Date(b.modifiedUtc || 0) - new Date(a.modifiedUtc || 0);
